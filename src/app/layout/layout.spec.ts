@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LayoutPage } from './layout.page';
+import { Layout } from './layout';
 
 describe('LayoutPage', () => {
-  let component: LayoutPage;
-  let fixture: ComponentFixture<LayoutPage>;
+  let component: Layout;
+  let fixture: ComponentFixture<Layout>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LayoutPage);
+    fixture = TestBed.createComponent(Layout);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

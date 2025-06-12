@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutPage } from './layout.page';
+import { Layout } from './layout';
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutPage,
+    component: Layout,
     children: [
       {
         path: 'home',
         loadChildren: () =>
-          import('../home/home.module').then((m) => m.HomePageModule),
+          import('../pages/home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'add-task',
         loadChildren: () =>
-          import('../add-task/add-task.module').then(
+          import('../pages/add-task/add-task.module').then(
             (m) => m.AddTaskPageModule
           ),
       },
@@ -32,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutPageRoutingModule {}
+export class LayoutRoutingModule {}

@@ -4,17 +4,19 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
-import { LayoutPage } from './layout.page';
-import { LayoutPageRoutingModule } from './layout-routing.module';
+import { Layout } from './layout';
+import { LayoutRoutingModule } from './layout-routing.module';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule.forRoot(),
-    LayoutPageRoutingModule,
+    LayoutRoutingModule,
     RouterModule,
+    IonicStorageModule.forRoot(),
   ],
-  declarations: [LayoutPage],
+  declarations: [Layout],
 })
-export class LayoutPageModule {}
+export class LayoutModule {}

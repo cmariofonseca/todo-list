@@ -4,10 +4,26 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Tareas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/add-task">Agregar</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>¡Bienvenido a tu To-Do List!</h2>
-  <p>Desde aquí podrás agregar, completar y filtrar tareas.</p>
+  <ion-list *ngIf="tasks.length > 0; else noTasks">
+    <ion-item *ngFor="let task of tasks" [routerLink]="['/task', task.id]">
+      <ion-label class="ion-text-wrap">
+        <h2>{{ task.title }}</h2>
+        <p>Categoría: {{ task.category }}</p>
+      </ion-label>
+      <ion-checkbox slot="start" [checked]="task.completed"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noTasks>
+    <div class="empty-state">
+      <p>No tienes tareas aún. ¡Agrega una nueva!</p>
+    </div>
+  </ng-template>
 </ion-content>
