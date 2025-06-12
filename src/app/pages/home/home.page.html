@@ -31,32 +31,11 @@
   </ion-segment>
 
   <ion-list *ngIf="tasks.length > 0; else noTasks">
-    <ion-item *ngFor="let task of tasks" lines="none">
-      <ion-label class="ion-text-wrap">
-        <h2>{{ task.title }}</h2>
-        <p>Categoría: {{ task.category }}</p>
-      </ion-label>
-
-      <ion-checkbox
-        slot="start"
-        [checked]="task.completed"
-        (ionChange)="toggleCompleted(task)"
-      ></ion-checkbox>
-      <ion-button
-        slot="end"
-        color="warning"
-        (click)="editTask(task)"
-        (keyDown)="editTask(task)"
-        >Editar</ion-button
-      >
-      <ion-button
-        slot="end"
-        color="danger"
-        (click)="deleteTask(task.id)"
-        (keyDown)="deleteTask(task.id)"
-        >Eliminar</ion-button
-      >
-    </ion-item>
+    <app-task-item
+      *ngFor="let task of tasks"
+      [task]="task"
+      (taskDeleted)="loadTasks()"
+    />
   </ion-list>
 
   <ng-template #noTasks>
