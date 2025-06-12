@@ -1,3 +1,26 @@
-<p>
-  task-item works!
-</p>
+<ion-item>
+  <ion-label class="ion-text-wrap">
+    <h2>{{ task.title }}</h2>
+    <p>Categoría: {{ task.category }}</p>
+  </ion-label>
+
+  <ion-checkbox
+    slot="start"
+    [checked]="task.completed"
+    (ionChange)="toggleCompleted(task)"
+  ></ion-checkbox>
+  <ion-button
+    slot="end"
+    color="warning"
+    (click)="editTask(task)"
+    (keyDown)="editTask(task)"
+    >Editar</ion-button
+  >
+  <ion-button
+    slot="end"
+    color="danger"
+    (click)="deleteTask(task.id)"
+    (keyDown)="deleteTask(task.id)"
+    >Eliminar</ion-button
+  >
+</ion-item>
