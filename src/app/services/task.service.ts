@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { StorageService } from './storage.service';
-import { STORAGE_KEYS } from '../models/constants/storage-keys';
+
 import { Task } from '../models/interfaces/task';
+import { STORAGE_KEYS } from '../models/constants/storage-keys';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +45,9 @@ export class TaskService {
 
   async getByCategory(category: string): Promise<Task[]> {
     const all = await this.getAll();
-    return all.filter((t) => t.category === category);
+    return category === 'all'
+      ? all
+      : all.filter((t) => t.category === category);
   }
 
   async toggleCompleted(task: Task): Promise<void> {

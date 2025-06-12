@@ -12,6 +12,7 @@ import { ToastController } from '@ionic/angular';
 })
 export class AddTaskPage implements OnInit {
   task!: Task;
+  isEditMode: boolean = false;
 
   constructor(
     private readonly taskService: TaskService,
@@ -20,15 +21,38 @@ export class AddTaskPage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.task = {
-      id: '',
-      title: '',
-      completed: false,
-      category: 'trabajo',
-    };
+    const navigation = window.history.state;
+    if (navigation?.task) {
+      this.task = navigation.task;
+      this.isEditMode = true;
+    } else {
+      this.task = {
+        id: '',
+        title: '',
+        completed: false,
+        category: 'trabajo',
+      };
+    }
   }
 
-  async presentToast(message: string) {
+  async onSave() {
+    if (!this.task.title.trim()) {
+      alert('Por favor, ingresa un título');
+      return;
+    }
+
+    if (this.isEditMode) {
+      await this.taskService.update(this.task);
+      this.showSuccessToast('Tarea actualizada');
+    } else {
+      await this.taskService.add(this.task);
+      this.showSuccessToast('Tarea creada');
+    }
+
+    this.router.navigate(['/home']);
+  }
+
+  async showSuccessToast(message: string) {
     const toast = await this.toastCtrl.create({
       message,
       duration: 2000,
@@ -36,12 +60,5 @@ export class AddTaskPage implements OnInit {
       color: 'success',
     });
     await toast.present();
-  }
-
-  async onSave() {
-    console.log(this.task);
-    await this.taskService.add(this.task);
-    await this.presentToast('Tarea agregada exitosamente');
-    this.router.navigate(['/home']);
   }
 }

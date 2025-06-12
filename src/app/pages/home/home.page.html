@@ -11,13 +11,51 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-segment
+    mode="md"
+    [(ngModel)]="selectedCategory"
+    (ionChange)="onCategoryChange($event)"
+  >
+    <ion-segment-button value="all">
+      <ion-label>Todas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="trabajo">
+      <ion-label>Trabajo</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="personal">
+      <ion-label>Personal</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="estudio">
+      <ion-label>Estudio</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
   <ion-list *ngIf="tasks.length > 0; else noTasks">
-    <ion-item *ngFor="let task of tasks" [routerLink]="['/task', task.id]">
+    <ion-item *ngFor="let task of tasks" lines="none">
       <ion-label class="ion-text-wrap">
         <h2>{{ task.title }}</h2>
         <p>Categoría: {{ task.category }}</p>
       </ion-label>
-      <ion-checkbox slot="start" [checked]="task.completed"></ion-checkbox>
+
+      <ion-checkbox
+        slot="start"
+        [checked]="task.completed"
+        (ionChange)="toggleCompleted(task)"
+      ></ion-checkbox>
+      <ion-button
+        slot="end"
+        color="warning"
+        (click)="editTask(task)"
+        (keyDown)="editTask(task)"
+        >Editar</ion-button
+      >
+      <ion-button
+        slot="end"
+        color="danger"
+        (click)="deleteTask(task.id)"
+        (keyDown)="deleteTask(task.id)"
+        >Eliminar</ion-button
+      >
     </ion-item>
   </ion-list>
 
