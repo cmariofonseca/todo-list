@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TaskService } from 'src/app/services/task.service';
+import { Task } from '../../models/interfaces/task';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,16 @@ import { Component, OnInit } from '@angular/core';
   standalone: false,
 })
 export class HomePage implements OnInit {
-  constructor() {}
+  tasks: Task[] = [];
 
-  ngOnInit() {}
+  constructor(private readonly taskService: TaskService) {}
+
+  ngOnInit() {
+    this.loadTasks();
+  }
+
+  private async loadTasks() {
+    this.tasks = await this.taskService.getAll();
+    console.log(this.tasks);
+  }
 }
