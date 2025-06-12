@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireRemoteConfigModule } from '@angular/fire/compat/remote-config';
 import { firebaseConfig } from '../environments/firebase-config';
+import { IonicStorageModule, Storage } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,8 +19,12 @@ import { firebaseConfig } from '../environments/firebase-config';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireRemoteConfigModule,
+    IonicStorageModule.forRoot(),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Storage,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
