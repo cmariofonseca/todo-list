@@ -50,6 +50,11 @@ export class HomePage implements OnInit {
     await this.loadTasks();
   }
 
+  async onTaskDeleted(taskId: string) {
+    console.log('se llama a onTaskDeleted');
+    this.tasks = await this.taskService.getAll();
+  }
+
   trackByFn(index: number, item: Task): string {
     return item.id;
   }

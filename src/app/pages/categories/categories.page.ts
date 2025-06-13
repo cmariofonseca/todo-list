@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { Category } from 'src/app/models/interfaces/category';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categories',
@@ -14,7 +15,10 @@ export class CategoriesPage implements OnInit {
   selectedCategoryId: string | null = null;
   textButton: string = 'AGREGAR';
 
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(
+    private readonly categoryService: CategoryService,
+    private readonly alertController: AlertController
+  ) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -53,9 +57,27 @@ export class CategoriesPage implements OnInit {
     this.selectedCategoryId = category.id;
   }
 
-  deleteCategory(id: string) {
-    this.categoryService.deleteCategory(id).then(() => {
-      this.loadCategories();
+  async deleteCategory(id: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message:
+        '¿Estás seguro de eliminar esta categoría? Esta acción no se puede deshacer.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+        },
+        {
+          text: 'Eliminar',
+          handler: () => {
+            this.categoryService.deleteCategory(id).then(() => {
+              this.loadCategories();
+            });
+          },
+        },
+      ],
     });
+
+    await alert.present();
   }
 }
