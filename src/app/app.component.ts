@@ -11,6 +11,6 @@ export class AppComponent implements OnInit {
   constructor(private readonly firebaseConfigService: FirebaseConfigService) {}
 
   ngOnInit(): void {
-    this.firebaseConfigService.load();
+    this.firebaseConfigService.loadFeatureFlags();
   }
 }

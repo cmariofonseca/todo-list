@@ -6,7 +6,7 @@ import { remoteConfig } from '../../environments/firebase-config';
   providedIn: 'root',
 })
 export class FirebaseConfigService {
-  async load(): Promise<void> {
+  async loadFeatureFlags(): Promise<void> {
     try {
       await fetchAndActivate(remoteConfig);
     } catch (error) {
