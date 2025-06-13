@@ -9,16 +9,23 @@ import { STORAGE_KEYS } from '../models/constants/storage-keys';
   providedIn: 'root',
 })
 export class TaskService {
+  private cachedTasks: Task[] = [];
   private readonly TASKS_KEY = STORAGE_KEYS.TASKS;
 
   constructor(private readonly storage: StorageService) {}
 
   async getAll(): Promise<Task[]> {
-    const tasks: Task[] = (await this.storage.get(this.TASKS_KEY)) || [];
+    if (this.cachedTasks.length > 0) {
+      return this.cachedTasks;
+    }
+
+    const tasks: Task[] = (await this.storage.get(STORAGE_KEYS.TASKS)) || [];
+    this.cachedTasks = tasks;
     return tasks;
   }
 
   async add(task: Omit<Task, 'id'>): Promise<void> {
+    this.cachedTasks = [];
     const tasks = await this.getAll();
     const newTask: Task = {
       ...task,

@@ -34,7 +34,7 @@
     <app-task-item
       (taskDeleted)="loadTasks()"
       [task]="task"
-      *ngFor="let task of tasks"
+      *ngFor="let task of tasks; trackBy: trackByFn"
     />
   </ion-list>
 
