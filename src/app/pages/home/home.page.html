@@ -30,7 +30,7 @@
 
   <ion-list *ngIf="tasks.length > 0; else noTasks">
     <app-task-item
-      (taskDeleted)="loadTasks()"
+      (taskDeleted)="onTaskDeleted($event)"
       [task]="task"
       *ngFor="let task of tasks; trackBy: trackByFn"
     />
