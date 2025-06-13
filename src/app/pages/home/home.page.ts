@@ -26,7 +26,6 @@ export class HomePage implements OnInit {
 
   async loadTasks() {
     this.tasks = await this.taskService.getAll();
-    console.log(this.tasks);
   }
 
   async onCategoryChange(event: any) {
