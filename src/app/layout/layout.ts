@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 import { StorageService } from '../services/storage.service';
 
@@ -9,7 +10,10 @@ import { StorageService } from '../services/storage.service';
   standalone: false,
 })
 export class Layout implements OnInit {
-  constructor(private readonly storageService: StorageService) {}
+  constructor(
+    private readonly storageService: StorageService,
+    private readonly menuCtrl: MenuController
+  ) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -17,5 +21,9 @@ export class Layout implements OnInit {
 
   private async getAll() {
     await this.storageService.init();
+  }
+
+  async onNavigate() {
+    await this.menuCtrl.close();
   }
 }
