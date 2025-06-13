@@ -32,9 +32,9 @@
 
   <ion-list *ngIf="tasks.length > 0; else noTasks">
     <app-task-item
-      *ngFor="let task of tasks"
-      [task]="task"
       (taskDeleted)="loadTasks()"
+      [task]="task"
+      *ngFor="let task of tasks"
     />
   </ion-list>
 

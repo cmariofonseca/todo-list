@@ -5,22 +5,25 @@
   </ion-label>
 
   <ion-checkbox
-    slot="start"
-    [checked]="task.completed"
     (ionChange)="toggleCompleted(task)"
-  ></ion-checkbox>
+    [checked]="task.completed"
+    slot="start"
+  />
   <ion-button
-    slot="end"
-    color="warning"
     (click)="editTask(task)"
     (keyDown)="editTask(task)"
-    >Editar</ion-button
-  >
-  <ion-button
+    color="warning"
     slot="end"
-    color="danger"
+  >
+    Editar
+  </ion-button>
+  <ion-button
     (click)="deleteTask(task.id)"
     (keyDown)="deleteTask(task.id)"
-    >Eliminar</ion-button
+    *ngIf="enableTaskDeletion"
+    color="danger"
+    slot="end"
   >
+    Eliminar
+  </ion-button>
 </ion-item>

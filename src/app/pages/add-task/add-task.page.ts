@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../services/task.service';
 import { Router } from '@angular/router';
-import { Task } from '../../models/interfaces/task';
 import { ToastController } from '@ionic/angular';
+
+import { TaskService } from '../../services/task.service';
+
+import { Task } from '../../models/interfaces/task';
 
 @Component({
   selector: 'app-add-task',
@@ -27,10 +29,10 @@ export class AddTaskPage implements OnInit {
       this.isEditMode = true;
     } else {
       this.task = {
+        category: 'trabajo',
+        completed: false,
         id: '',
         title: '',
-        completed: false,
-        category: 'trabajo',
       };
     }
   }
