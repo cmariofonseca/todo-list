@@ -32,4 +32,8 @@ export class HomePage implements OnInit {
     const category = event.detail.value;
     this.tasks = await this.taskService.getByCategory(category);
   }
+
+  trackByFn(index: number, item: Task): string {
+    return item.id;
+  }
 }
