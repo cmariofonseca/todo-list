@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { TaskService } from 'src/app/services/task.service';
+import { CategoryService } from 'src/app/services/category.service';
 
 import { Task } from '../../models/interfaces/task';
+import { Category } from 'src/app/models/interfaces/category';
 
 @Component({
   selector: 'app-home',
@@ -12,25 +14,40 @@ import { Task } from '../../models/interfaces/task';
 })
 export class HomePage implements OnInit {
   tasks: Task[] = [];
+  categories: Category[] = [];
   selectedCategory: string = 'all';
 
-  constructor(private readonly taskService: TaskService) {}
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly categoryService: CategoryService
+  ) {}
 
   ngOnInit() {
     this.loadTasks();
+    this.loadCategories();
   }
 
   async ionViewWillEnter() {
     await this.loadTasks();
+    await this.loadCategories();
   }
 
   async loadTasks() {
-    this.tasks = await this.taskService.getAll();
+    if (this.selectedCategory === 'all') {
+      this.tasks = await this.taskService.getAll();
+    } else {
+      this.tasks = await this.taskService.getByCategory(this.selectedCategory);
+    }
+  }
+
+  async loadCategories() {
+    this.categories = await this.categoryService.getCategories();
   }
 
   async onCategoryChange(event: any) {
     const category = event.detail.value;
-    this.tasks = await this.taskService.getByCategory(category);
+    this.selectedCategory = category;
+    await this.loadTasks();
   }
 
   trackByFn(index: number, item: Task): string {

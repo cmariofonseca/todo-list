@@ -5,6 +5,8 @@ import { ToastController } from '@ionic/angular';
 import { TaskService } from '../../services/task.service';
 
 import { Task } from '../../models/interfaces/task';
+import { CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/models/interfaces/category';
 
 @Component({
   selector: 'app-add-task',
@@ -14,16 +16,19 @@ import { Task } from '../../models/interfaces/task';
 })
 export class AddTaskPage implements OnInit {
   task!: Task;
+  categories!: Category[];
   isEditMode: boolean = false;
 
   constructor(
     private readonly taskService: TaskService,
     private readonly router: Router,
-    private readonly toastCtrl: ToastController
+    private readonly toastCtrl: ToastController,
+    private readonly categoryService: CategoryService
   ) {}
 
   ngOnInit(): void {
     const navigation = window.history.state;
+    this.loadCategories();
     if (navigation?.task) {
       this.task = navigation.task;
       this.isEditMode = true;
@@ -35,6 +40,14 @@ export class AddTaskPage implements OnInit {
         title: '',
       };
     }
+  }
+
+  async ionViewWillEnter() {
+    await this.loadCategories();
+  }
+
+  async loadCategories() {
+    this.categories = await this.categoryService.getCategories();
   }
 
   async onSave() {
