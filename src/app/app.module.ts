@@ -8,8 +8,13 @@ import { IonicStorageModule, Storage } from '@ionic/storage-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
-import { firebaseConfig } from '../environments/firebase-config';
+import { CategoryService } from './services/category.service';
+import { TaskService } from './services/task.service';
+import { FirebaseConfigService } from './services/firebase-config.service';
+
 import { AppComponent } from './app.component';
+
+import { firebaseConfig } from '../environments/firebase-config';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +29,9 @@ import { AppComponent } from './app.component';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     Storage,
+    CategoryService,
+    TaskService,
+    FirebaseConfigService,
   ],
   bootstrap: [AppComponent],
 })

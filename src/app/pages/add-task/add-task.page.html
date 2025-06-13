@@ -18,12 +18,16 @@
       <ion-label>Categoría</ion-label>
       <ion-select
         [(ngModel)]="task.category"
+        interface="popover"
         name="category"
         placeholder="Selecciona una categoría"
       >
-        <ion-select-option value="trabajo">Trabajo</ion-select-option>
-        <ion-select-option value="personal">Personal</ion-select-option>
-        <ion-select-option value="estudio">Estudio</ion-select-option>
+        <ion-select-option
+          [value]="category.id"
+          *ngFor="let category of categories"
+        >
+          {{ category.name }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
