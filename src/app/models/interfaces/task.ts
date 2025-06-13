@@ -1,6 +1,6 @@
 export interface Task {
+  category: string;
+  completed: boolean;
   id: string;
   title: string;
-  completed: boolean;
-  category: string;
 }

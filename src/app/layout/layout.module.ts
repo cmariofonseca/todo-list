@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-
-import { Layout } from './layout';
-import { LayoutRoutingModule } from './layout-routing.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
 
+import { LayoutRoutingModule } from './layout-routing.module';
+
+import { Layout } from './layout';
+
 @NgModule({
+  declarations: [Layout],
   imports: [
     CommonModule,
     FormsModule,
@@ -17,6 +19,5 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     RouterModule,
     IonicStorageModule.forRoot(),
   ],
-  declarations: [Layout],
 })
 export class LayoutModule {}
